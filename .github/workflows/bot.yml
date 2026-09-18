@@ -14,6 +14,11 @@ jobs:
           php-version: '8.3'
       - name: Install dependencies
         run: composer install --no-dev
+      - name: Save Private Key
+        run: |
+          cat << 'EOF' > private.pem
+          ${{ secrets.OCI_PRIVATE_KEY }}
+          EOF
       - name: Run script
         run: php index.php
         env:
@@ -21,7 +26,7 @@ jobs:
           OCI_USER_ID: ${{ secrets.OCI_USER_ID }}
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_ID }}
           OCI_KEY_FINGERPRINT: ${{ secrets.OCI_KEY_FINGERPRINT }}
-          OCI_PRIVATE_KEY: ${{ secrets.OCI_PRIVATE_KEY }}
+          OCI_PRIVATE_KEY_FILENAME: private.pem
           OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
           OCI_IMAGE_ID: ${{ secrets.OCI_IMAGE_ID }}
           OCI_OCPUS: ${{ secrets.OCI_OCPUS }}
