@@ -1,8 +1,6 @@
 name: OCI Auto Provision
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '*/5 * * * *'
 jobs:
   run-bot:
     runs-on: ubuntu-latest
